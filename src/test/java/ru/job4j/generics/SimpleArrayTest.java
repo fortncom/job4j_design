@@ -40,12 +40,10 @@ public class SimpleArrayTest {
     @Test
     public void whenRemoveElement() {
         simpleArray.remove(2);
-        Integer[] expected = new Integer[]{1, 5, 9, null};
-        Integer[] rsl = new Integer[] {simpleArray.get(0), simpleArray.get(1), simpleArray.get(2), simpleArray.get(3)};
+        Integer[] expected = new Integer[]{1, 5, 9};
+        Integer[] rsl = new Integer[] {simpleArray.get(0), simpleArray.get(1), simpleArray.get(2)};
         Assert.assertArrayEquals(expected, rsl);
     }
-
-
 
     @Test
     public void sequentialHasNextInvocationReturnTrue() {
@@ -58,7 +56,5 @@ public class SimpleArrayTest {
         assertThat(it.next(), is(8));
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(9));
-        assertThat(it.hasNext(), is(true));
-        Assert.assertNull(it.next());
     }
 }

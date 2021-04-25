@@ -8,35 +8,39 @@ import java.util.Objects;
 public class SimpleArray<T> implements Iterable<T> {
 
     private T[] data;
+    private int count = 0;
 
     public SimpleArray(T[] data, int size) {
-        data = Arrays.copyOf(data, size);
-        this.data = data;
+        this.data = Arrays.copyOf(data, size);
+        count = data.length;
     }
 
     public void add(T model) {
-        for (int i = 0; i < data.length; i++) {
+        for (int i = 0; i < count; i++) {
             if (data[i] == null) {
                 set(i, model);
                 return;
             }
         }
-//        data = Arrays.copyOf(this.data, this.data.length + 1);
-//        set(data.length - 1, model);
+        if (count < data.length) {
+            data[count++] = model;
+        }
     }
 
     public void set(int index, T model) {
-        Objects.checkIndex(index, data.length);
+        Objects.checkIndex(index, count - 1);
         data[index] = model;
     }
 
     public void remove(int index) {
-        Objects.checkIndex(index, data.length);
-        System.arraycopy(data, index + 1, data, index, data.length - 1 - index);
-        data[data.length - 1] = null;
+        Objects.checkIndex(index, count - 1);
+        System.arraycopy(data, index + 1, data, index, count - 1 - index);
+        data[count - 1] = null;
+        count--;
     }
 
     public T get(int index) {
+        Objects.checkIndex(index, count);
         return data[index];
     }
 
@@ -46,7 +50,7 @@ public class SimpleArray<T> implements Iterable<T> {
             int cursor = 0;
             @Override
             public boolean hasNext() {
-                return cursor < data.length;
+                return cursor < count;
             }
 
             @Override
