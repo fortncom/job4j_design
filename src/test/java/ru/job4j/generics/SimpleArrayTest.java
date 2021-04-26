@@ -29,15 +29,6 @@ public class SimpleArrayTest {
     }
 
     @Test
-    public void whenAddElementInsteadNull() {
-        simpleArray.set(1,null);
-        simpleArray.add(24);
-        Integer expected = 24;
-        Integer rsl = simpleArray.get(1);
-        Assert.assertEquals(expected, rsl);
-    }
-
-    @Test
     public void whenRemoveElement() {
         simpleArray.remove(2);
         Integer[] expected = new Integer[]{1, 5, 9};
