@@ -5,6 +5,9 @@ public class SimpleStack<T> {
 
     private ForwardLinked<T> linked = new ForwardLinked<>();
 
+    public int size() {
+        return linked.size();
+    }
 
     public T pop() {
         return linked.deleteFirst();
