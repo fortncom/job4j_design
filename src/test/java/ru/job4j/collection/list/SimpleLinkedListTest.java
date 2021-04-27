@@ -57,7 +57,7 @@ public class SimpleLinkedListTest {
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(1));
         list.add(2);
-        Integer next = it.next();
+        it.next();
     }
 
 }

@@ -19,12 +19,11 @@ public class SimpleLinkedList<E> implements List<E> {
         if (size == 0) {
             newNode = new Node<>(null, value, null);
             first = newNode;
-            last = newNode;
         } else {
             newNode = new Node<>(last, value, null);
             last.next = newNode;
-            last = newNode;
         }
+        last = newNode;
         size++;
         modCount++;
     }
@@ -33,20 +32,15 @@ public class SimpleLinkedList<E> implements List<E> {
     public E get(int index) {
         Objects.checkIndex(index, size);
        Node<E> currentNode = first;
-       int count = 0;
-       while (currentNode != null) {
-           if (count++ == index) {
-               return currentNode.element;
-           } else {
-               currentNode = currentNode.next;
-           }
-       }
-       return null;
+        for (int i = 0; i < index; i++) {
+            currentNode = currentNode.next;
+        }
+        return currentNode.element;
     }
 
     @Override
     public Iterator<E> iterator() {
-        return new Iterator<E>() {
+        return new Iterator<>() {
             int cursor = 0;
             Node<E> currentNode = first;
             Node<E> returnNode;
