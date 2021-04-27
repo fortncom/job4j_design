@@ -16,9 +16,8 @@ public class SimpleArrayTest {
     @Before
     public void setUp() {
         Integer[] integers = new Integer[]{1, 5, 8, 9};
-        simpleArray = new SimpleArray<>(integers,100);
+        simpleArray = new SimpleArray<>(integers, 100);
     }
-
 
     @Test
     public void whenAddElement() {
