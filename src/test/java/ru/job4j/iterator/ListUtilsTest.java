@@ -44,4 +44,11 @@ public class ListUtilsTest {
         ListUtils.replaceIf(input, integer -> integer == 3, 5);
         assertThat(Arrays.asList(0, 1, 2, 5), is(input));
     }
+
+    @Test
+    public void whenValueEqualsRemove() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
+        ListUtils.removeAll(input, List.of(1, 2));
+        assertThat(Arrays.asList(0, 3), is(input));
+    }
 }
