@@ -22,11 +22,9 @@ public class ListUtils {
     public static <T> void addAfter(List<T> list, int index, T value) {
         Objects.checkIndex(index, list.size());
         ListIterator<T> i = list.listIterator();
-        while (i.hasNext()) {
+        while (i.previousIndex() != index) {
             T next = i.next();
-            if (i.nextIndex() - 1 == index) {
-                i.remove();
-                i.add(next);
+            if (i.previousIndex() == index) {
                 i.add(value);
                 break;
             }
