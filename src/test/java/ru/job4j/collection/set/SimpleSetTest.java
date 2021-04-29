@@ -2,9 +2,6 @@ package ru.job4j.collection.set;
 
 import org.junit.Test;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 

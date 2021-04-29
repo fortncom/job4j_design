@@ -11,12 +11,8 @@ public class SimpleSet<T> implements Set<T> {
 
     @Override
     public boolean add(T value) {
-        Iterator<T> it = set.iterator();
-        while (it.hasNext()) {
-            T next = it.next();
-            if (next == null && value == null || Objects.equals(next, value)) {
-                return false;
-            }
+        if (contains(value)) {
+            return false;
         }
         set.add(value);
         return true;
