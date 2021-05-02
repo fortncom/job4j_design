@@ -1,6 +1,7 @@
 package ru.job4j.collection.map;
 
 import java.util.*;
+import java.util.Map;
 
 public class User {
 
@@ -9,7 +10,7 @@ public class User {
                 GregorianCalendar(1972, 12, 21, 13, 22, 22);
         User user = new User("Tom", 1, date);
         User user2 = new User("Tom", 1, date);
-        Map<User, Object> map = new HashMap<>();
+        java.util.Map<User, Object> map = new HashMap<>();
         map.put(user, new Object());
         map.put(user2, new Object());
         for (Map.Entry<User, Object> userObjectEntry : map.entrySet()) {
