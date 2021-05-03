@@ -22,6 +22,19 @@ public class SimpleTreeTest {
     }
 
     @Test
+    public void whenTreeBinaryThenTrue() {
+        Tree<Integer> tree = new SimpleTree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(3, 5);
+        tree.add(2, 6);
+        assertThat(
+                tree.isBinary(),
+                is(true)
+        );
+    }
+
+    @Test
     public void when6ElFindNotExitThenOptionEmpty() {
         Tree<Integer> tree = new SimpleTree<>(1);
         tree.add(1, 2);
