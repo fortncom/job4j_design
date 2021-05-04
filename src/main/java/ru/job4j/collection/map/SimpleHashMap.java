@@ -14,6 +14,26 @@ public class SimpleHashMap<K, V> implements Map<K, V>, Iterable<SimpleHashMap.En
 
     @Override
     public boolean insert(K key, V value) {
+        boolean rsl = false;
+        Entry<K, V> inEntry = new Entry<>(key, value);
+        extension();
+        int hash = hash(key);
+        int index = hashToIndex(hash);
+        Entry<K, V> e = container[index];
+        if (e == null) {
+            container[index] = inEntry;
+            length++;
+            modCount++;
+            rsl = true;
+        } else if (e.key.equals(key)) {
+            container[index] = inEntry;
+            modCount++;
+            rsl = true;
+        }
+            return rsl;
+    }
+
+    private void extension() {
         if (length == load) {
             Iterator<Entry<K, V>> iterator = iterator();
             Entry<K, V>[] temp = new Entry[capacity * 2];
@@ -23,17 +43,8 @@ public class SimpleHashMap<K, V> implements Map<K, V>, Iterable<SimpleHashMap.En
             }
             capacity *= 2;
             load = (int) (capacity * 0.75);
+            container = temp;
         }
-        int hash = hash(key);
-        int index = hashToIndex(hash);
-        Entry<K, V> e = container[index];
-        if (e == null) {
-            container[index] = new Entry<>(key, value);
-            length++;
-            modCount++;
-            return true;
-        }
-            return false;
     }
 
     @Override
@@ -51,8 +62,11 @@ public class SimpleHashMap<K, V> implements Map<K, V>, Iterable<SimpleHashMap.En
             return false;
         }
         int hashKeyInput = hash(key);
-        int index = hashToIndex(hash(key));
+        int index = hashToIndex(hashKeyInput);
         Entry<K, V> entry = container[index];
+        if (entry == null) {
+            return false;
+        }
         if (hashKeyInput == hash(entry.key) && key.equals(entry.key)) {
             container[index] = null;
             length--;
@@ -106,7 +120,6 @@ public class SimpleHashMap<K, V> implements Map<K, V>, Iterable<SimpleHashMap.En
     static class Entry<K, V> {
         final K key;
         V value;
-//        Entry next;
 
         Entry(K k, V v) {
             key = k;

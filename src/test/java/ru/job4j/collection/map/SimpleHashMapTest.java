@@ -41,7 +41,6 @@ public class SimpleHashMapTest {
         int i = 1;
         while (map.length < 15) {
             str.append(i++);
-            System.out.println(str);
             map.insert(str.toString(), 1);
         }
         Integer rsl = map.getCapacity();
