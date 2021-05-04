@@ -11,12 +11,12 @@ import static org.junit.Assert.*;
 public class SimpleHashMapTest {
 
     @Test
-    public void whenAddDuplicateThenFalse() {
+    public void whenAddDuplicateThenTrue() {
         SimpleHashMap<User, Integer> map = new SimpleHashMap<>();
         User user = new User("Tom", 1, new
                 GregorianCalendar(1972, 12, 21));
         map.insert(user, 1);
-        assertFalse(map.insert(user, 1));
+        assertTrue(map.insert(user, 1));
     }
 
     @Test
