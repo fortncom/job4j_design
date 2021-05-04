@@ -20,7 +20,7 @@ public class SimpleTree<E> implements Tree<E> {
         if (optionalNode.isPresent()) {
             Node<E> nodeParent = optionalNode.get();
             List<Node<E>> children = nodeParent.children;
-            if (!children.contains(new Node<>(child))) {
+            if (findBy(child).isEmpty()) {
                 children.add(new Node<>(child));
                 rsl = true;
             }
