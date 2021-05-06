@@ -70,6 +70,7 @@ public class SimpleHashMap<K, V> implements Map<K, V>, Iterable<SimpleHashMap.En
         if (hashKeyInput == hash(entry.key) && key.equals(entry.key)) {
             container[index] = null;
             length--;
+            modCount++;
             return true;
         }
         return false;
