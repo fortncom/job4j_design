@@ -18,7 +18,7 @@ public class Analize {
             if (user2 == null) {
                 info.added++;
                 continue;
-            } else if (!user.getName().equals(user2.getName())) {
+            } else if (!user.equals(user2)) {
                 info.changed++;
             }
             map.remove(user2.getId());
@@ -57,12 +57,13 @@ public class Analize {
                 return false;
             }
             User user = (User) o;
-            return getId() == (user.getId());
+            return getId() == (user.getId())
+            && getName().equals(user.getName());
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(getId());
+            return Objects.hash(getId(), getName());
         }
     }
 
