@@ -24,12 +24,12 @@ public class StartUITest {
                 new ExitAction(new StubOutput())));
         new StartUI(new StubOutput()).init(in, base, actions);
         String separator = System.lineSeparator();
-        assertThat(out.toString(), is("=== Add a new User ====" + separator +
-                        "Все доступные пользователи:" + separator +
-                        "User{name='user1', mails=[, lol@mail.ru, xxx@ya.ru, foo@gmail.com]}" + separator +
-                        "=== Add a new User ====" + separator +
-                        "Все доступные пользователи:" + separator +
-                        "User{name='user1', mails=[, ups@pisem.net, lol@mail.ru, xxx@ya.ru, foo@gmail.com]}" + separator));
+        assertThat(out.toString(), is("=== Add a new User ====" + separator
+                + "Все доступные пользователи:" + separator
+                + "User{name='user1', mails=[, lol@mail.ru, xxx@ya.ru, foo@gmail.com]}" + separator
+                + "=== Add a new User ====" + separator
+                + "Все доступные пользователи:" + separator
+                + "User{name='user1', mails=[, ups@pisem.net, lol@mail.ru, xxx@ya.ru, foo@gmail.com]}" + separator));
     }
 
     @Test
@@ -46,13 +46,13 @@ public class StartUITest {
                 new ExitAction(new StubOutput())));
         new StartUI(new StubOutput()).init(in, base, actions);
         String separator = System.lineSeparator();
-        assertThat(out.toString(), is("=== Add a new User ====" + separator +
-                "Все доступные пользователи:" + separator +
-                "User{name='user1', mails=[, lol@mail.ru, xxx@ya.ru, foo@gmail.com]}" + separator +
-                "=== Add a new User ====" + separator +
-                "Все доступные пользователи:" + separator +
-                "User{name='user1', mails=[, lol@mail.ru, xxx@ya.ru, foo@gmail.com]}" + separator +
-                "User{name='user2', mails=[ups@pisem.net]}" + separator));
+        assertThat(out.toString(), is("=== Add a new User ====" + separator
+                + "Все доступные пользователи:" + separator
+                + "User{name='user1', mails=[, lol@mail.ru, xxx@ya.ru, foo@gmail.com]}" + separator
+                + "=== Add a new User ====" + separator
+                + "Все доступные пользователи:" + separator
+                + "User{name='user1', mails=[, lol@mail.ru, xxx@ya.ru, foo@gmail.com]}" + separator
+                + "User{name='user2', mails=[ups@pisem.net]}" + separator));
     }
 
     @Test
@@ -71,10 +71,10 @@ public class StartUITest {
                 new ExitAction(new StubOutput())));
         new StartUI(new StubOutput()).init(in, base, actions);
         String separator = System.lineSeparator();
-        assertThat(out.toString(), is("=== Delete User ====" + separator +
-                        "Пользователь удален успешно." + separator +
-                        "Все доступные пользователи:" + separator +
-                        "User{name='user2', mails=[ups@pisem.net]}" + separator));
+        assertThat(out.toString(), is("=== Delete User ====" + separator
+                + "Пользователь удален успешно." + separator
+                + "Все доступные пользователи:" + separator
+                + "User{name='user2', mails=[ups@pisem.net]}" + separator));
     }
 
 }
