@@ -12,8 +12,7 @@ public class ConfigTest {
         String path = "src/main/java/ru/job4j/app.properties";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("hibernate.dialect")
-                ,is("org.hibernate.dialect.PostgreSQLDialect"));
+        assertThat(config.value("hibernate.dialect"), is("org.hibernate.dialect.PostgreSQLDialect"));
     }
 
     @Test
