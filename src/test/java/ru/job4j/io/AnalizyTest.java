@@ -1,56 +1,86 @@
 package ru.job4j.io;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.StringJoiner;
 
 import static org.junit.Assert.assertEquals;
 
 public class AnalizyTest {
 
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+
     @Test
-    public void whenServerAlwaysOff() {
-        String pathIn = "src/main/java/ru/job4j/res/server.1.log";
-        String pathOut = "src/main/java/ru/job4j/res/unavailable.1.csv";
+    public void whenServerAlwaysOff() throws IOException {
+        File source = folder.newFile("source.txt");
+        File target = folder.newFile("target.txt");
+        try (PrintWriter out = new PrintWriter(source)) {
+            out.println("200 10:56:01\n" +
+                        "\n" +
+                        "200 10:57:01\n" +
+                        "\n" +
+                        "200 10:59:01\n" +
+                        "\n" +
+                        "200 11:02:02");
+        }
         Analizy analizy = new Analizy();
-        analizy.unavailable(pathIn, pathOut);
-        assertEquals(analizy.getLogUnavailable().toString(), "");
+        analizy.unavailable(source.getAbsolutePath(), target.getAbsolutePath());
+        StringBuilder rsl = new StringBuilder();
+        try (BufferedReader in = new BufferedReader(new FileReader(target))) {
+            in.lines().forEach(rsl::append);
+        }
+        assertEquals(rsl.toString(), "csv");
     }
 
     @Test
-    public void whenServerAlwaysOn() {
-        String pathIn = "src/main/java/ru/job4j/res/server.2.log";
-        String pathOut = "src/main/java/ru/job4j/res/unavailable.2.csv";
-        Analizy analizy = new Analizy();
-        analizy.unavailable(pathIn, pathOut);
-        StringBuilder rsl = new StringBuilder("");
-        try (BufferedReader in = new BufferedReader(new FileReader(pathOut))) {
-            in.readLine();
-            rsl.append(in.readLine());
-        } catch (IOException ex) {
-            ex.printStackTrace();
+    public void whenServerAlwaysOn() throws IOException {
+        File source = folder.newFile("source.txt");
+        File target = folder.newFile("target.txt");
+        try (PrintWriter out = new PrintWriter(source)) {
+            out.println("400 10:58:01\n" +
+                        "\n" +
+                        "500 11:01:02\n" +
+                        "\n" +
+                        "500 11:01:02");
         }
-        assertEquals(rsl.toString(), analizy.getLogUnavailable().toString());
+        Analizy analizy = new Analizy();
+        analizy.unavailable(source.getAbsolutePath(), target.getAbsolutePath());
+        StringJoiner rsl = new StringJoiner(System.lineSeparator());
+        try (BufferedReader in = new BufferedReader(new FileReader(target))) {
+            in.lines().forEach(rsl::add);
+        }
+        assertEquals(rsl.toString(), "csv" + System.lineSeparator() + "10:58:01;");
     }
 
     @Test
-    public void whenServer2TimeOff() {
-        String pathIn = "src/main/java/ru/job4j/res/server.3.log";
-        String pathOut = "src/main/java/ru/job4j/res/unavailable.3.csv";
-        Analizy analizy = new Analizy();
-        analizy.unavailable(pathIn, pathOut);
-        StringBuilder rsl = new StringBuilder("");
-        try (BufferedReader in = new BufferedReader(new FileReader(pathOut))) {
-            in.readLine();
-            rsl.append(in.readLine());
-            rsl.append(System.lineSeparator());
-            rsl.append(in.readLine());
-            rsl.append(System.lineSeparator());
-        } catch (IOException ex) {
-            ex.printStackTrace();
+    public void whenServer2TimeOff() throws IOException {
+        File source = folder.newFile("source.txt");
+        File target = folder.newFile("target.txt");
+        try (PrintWriter out = new PrintWriter(source)) {
+            out.println("200 10:56:01\n" +
+                    "\n" +
+                    "200 10:57:01\n" +
+                    "\n" +
+                    "400 10:58:01\n" +
+                    "\n" +
+                    "200 10:59:01\n" +
+                    "\n" +
+                    "500 11:01:02\n" +
+                    "\n" +
+                    "200 11:02:02");
         }
-        assertEquals(rsl.toString(), analizy.getLogUnavailable().toString());
+        Analizy analizy = new Analizy();
+        analizy.unavailable(source.getAbsolutePath(), target.getAbsolutePath());
+        StringJoiner rsl = new StringJoiner(System.lineSeparator());
+        try (BufferedReader in = new BufferedReader(new FileReader(target))) {
+            in.lines().forEach(rsl::add);
+        }
+        assertEquals(rsl.toString(), "csv" + System.lineSeparator() +
+                "10:58:01;10:59:01;" + System.lineSeparator() +
+                "11:01:02;11:02:02;");
     }
 }

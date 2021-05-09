@@ -4,13 +4,8 @@ import java.io.*;
 
 public class Analizy {
 
-    private StringBuilder logUnavailable = new StringBuilder("");
-
-    public StringBuilder getLogUnavailable() {
-        return logUnavailable;
-    }
-
     public void unavailable(String source, String target) {
+        StringBuilder logUnavailable = new StringBuilder();
         try (BufferedReader in = new BufferedReader(new FileReader(source));
              PrintWriter out = new PrintWriter(
                      new FileOutputStream(target))) {
