@@ -20,8 +20,7 @@ public class Analizy {
                 int status = Integer.parseInt(line.split(" ")[0]);
                 if (status > 300) {
                     String s = line.split(" ")[1];
-                    logUnavailable.append(s);
-                    logUnavailable.append(";");
+                    logUnavailable.append(String.format("%s;", s));
                     while (status > 300 && line != null) {
                         line = in.readLine();
                         if (line != null) {
@@ -33,9 +32,7 @@ public class Analizy {
                     }
                     if (line != null) {
                         s = line.split(" ")[1];
-                        logUnavailable.append(s);
-                        logUnavailable.append(";");
-                        logUnavailable.append(System.lineSeparator());
+                        logUnavailable.append(String.format("%s;%n", s));
                         continue;
                     }
                 }
