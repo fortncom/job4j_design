@@ -4,12 +4,11 @@ import java.util.*;
 
 public class Base {
 
-    private final HashMap<String, User> allUsers = new HashMap<>();
+    private final Map<String, User> allUsers = new HashMap<>();
 
     public void add(User user) {
-        HashSet<String> allMails = new HashSet<>(allUsers.keySet());
         for (String userMail : user.getMails()) {
-            if (allMails.contains(userMail)) {
+            if (allUsers.containsKey(userMail)) {
                 User mainUser = allUsers.get(userMail);
                 for (String s : user.getMails()) {
                     allUsers.put(s, mainUser);
