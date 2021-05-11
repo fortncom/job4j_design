@@ -19,15 +19,14 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             for (String line = read.readLine(); line != null; line = read.readLine()) {
-                if (line.length() == 0) {
+                if (line.length() == 0 || !(line.charAt(0) == '#')) {
                     continue;
                 }
                 String[] str = line.split("=");
                 if (str.length != 2) {
                     throw new IllegalStateException();
-                } else if (!(str[0].charAt(0) == '#')) {
-                    values.put(str[0], str[1]);
                 }
+                values.put(str[0], str[1]);
             }
         } catch (IOException e) {
             e.printStackTrace();
