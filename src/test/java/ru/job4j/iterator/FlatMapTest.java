@@ -54,6 +54,7 @@ public class FlatMapTest {
         assertThat(flat.hasNext(), is(false));
     }
 
+    @SuppressWarnings("unchecked")
     @Test(expected = NoSuchElementException.class)
     public void whenEmpty() {
         Iterator<Iterator<Object>> data = List.of(
@@ -64,6 +65,7 @@ public class FlatMapTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void whenSeveralEmptyAndNotEmpty() {
         Iterator<Iterator<?>> it = List.of(
                 List.of().iterator(),
@@ -77,6 +79,7 @@ public class FlatMapTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void whenSeveralEmptyThenReturnFalse() {
         Iterator<Iterator<Object>> it = List.of(
                 List.of().iterator(),

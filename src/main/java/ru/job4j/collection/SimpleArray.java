@@ -12,6 +12,7 @@ public class SimpleArray<T> implements Iterable<T> {
         this.container = new Object[10];
     }
 
+    @SuppressWarnings("unchecked")
     public T get(int index) {
         Objects.checkIndex(index, size);
         return (T) container[index];
@@ -38,6 +39,7 @@ public class SimpleArray<T> implements Iterable<T> {
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();

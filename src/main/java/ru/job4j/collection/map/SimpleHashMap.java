@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 public class SimpleHashMap<K, V> implements Map<K, V>, Iterable<SimpleHashMap.Entry<K, V>> {
 
     private int capacity = 16;
+    @SuppressWarnings("unchecked")
     private Entry<K, V>[] container = new Entry[capacity];
     private int load = (int) (capacity * 0.75);
     private int modCount = 0;
@@ -33,6 +34,7 @@ public class SimpleHashMap<K, V> implements Map<K, V>, Iterable<SimpleHashMap.En
             return rsl;
     }
 
+    @SuppressWarnings("unchecked")
     private void extension() {
         if (length == load) {
             Iterator<Entry<K, V>> iterator = iterator();
@@ -133,10 +135,6 @@ public class SimpleHashMap<K, V> implements Map<K, V>, Iterable<SimpleHashMap.En
 
         public void setValue(V value) {
             this.value = value;
-        }
-
-        public K getKey() {
-            return key;
         }
     }
 }
