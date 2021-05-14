@@ -16,22 +16,25 @@ public class ConsoleChat {
         this.botAnswers = botAnswers;
     }
 
+    private List<String> answers() {
+        List<String> answers = new ArrayList<>();
+        try (BufferedReader in = new BufferedReader(new FileReader(botAnswers))) {
+            String data;
+            while ((data = in.readLine()) != null) {
+                answers.add(data);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return answers;
+    }
+
     public void run() {
         boolean chatOn = true;
         boolean silence = false;
-            List<String> answers = new ArrayList<>();
-            StringJoiner joiner = new StringJoiner(System.lineSeparator());
-            try (BufferedReader in = new BufferedReader(new FileReader(botAnswers))) {
-                String data;
-                while ((data = in.readLine()) != null) {
-                    answers.add(data);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        try (BufferedWriter out = new BufferedWriter(new FileWriter(path, true));
-             Scanner scanner = new Scanner(System.in)) {
+        List<String> answers = answers();
+        StringJoiner joiner = new StringJoiner(System.lineSeparator());
+        try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Добро пожаловать в чат.");
             while (chatOn) {
                 String question = scanner.nextLine();
@@ -47,16 +50,19 @@ public class ConsoleChat {
                     silence = false;
                 }
                 if (!silence) {
-                    int random = (int) (Math.random() * answers.size() - 1);
+                    int random = (int) (Math.random() * answers.size());
                     String answer = answers.get(random);
                     joiner.add(answer);
                     System.out.println(answer);
                 }
             }
+        }
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(path, true))) {
             out.write(String.valueOf(joiner));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public static void main(String[] args) {
