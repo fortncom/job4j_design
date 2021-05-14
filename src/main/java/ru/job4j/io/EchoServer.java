@@ -19,6 +19,7 @@ public class EchoServer {
                     String str = in.readLine();
                     while (!(str.isEmpty())) {
                         if (str.contains("?msg")) {
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                             if (str.toLowerCase().contains("bye")) {
                                 out.write("Server closed.".getBytes());
                                 server.close();
@@ -27,8 +28,8 @@ public class EchoServer {
                             } else {
                                 out.write("What".getBytes());
                             }
-                            System.out.println(str);
                         }
+                        System.out.println(str);
                         str = in.readLine();
                     }
                 }
