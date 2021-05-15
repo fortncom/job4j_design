@@ -64,7 +64,7 @@ public class ConsoleChat {
     private boolean write() {
         try (BufferedWriter out = new BufferedWriter(new FileWriter(path, true))) {
             for (String s : listToWrite) {
-                out.write(s);
+                out.write(s + System.lineSeparator());
             }
             return true;
         } catch (IOException e) {
