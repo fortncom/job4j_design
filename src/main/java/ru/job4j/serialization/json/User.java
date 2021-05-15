@@ -2,8 +2,13 @@ package ru.job4j.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public class User {
 
@@ -21,6 +26,26 @@ public class User {
         this.location = location;
     }
 
+    public boolean isMarried() {
+        return married;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String[] getChildren() {
+        return children;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
     @Override
     public String toString() {
         return "User{"
@@ -32,6 +57,29 @@ public class User {
                 + '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return married == user.married
+                && age == user.age
+                && Objects.equals(name, user.name)
+                && Arrays.equals(children, user.children)
+                && Objects.equals(location, user.location);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(married, name, age, location);
+        result = 31 * result + Arrays.hashCode(children);
+        return result;
+    }
+
     public static void main(String[] args) {
         Location location = new Location(50.0, 50.0);
         User user = new User(true, "Pol", 28,
@@ -40,13 +88,18 @@ public class User {
         final Gson gson = new GsonBuilder().create();
         System.out.println(gson.toJson(user));
 
-        final String userJson = "{\"married\":true,"
-                + "\"name\":\"Pol\","
-                + "\"age\":28,"
-                + "\"children\":[\"Tom\",\"Wilson\"],"
-                + "\"location\":{\"latitude\":50.0,\"longitude\":50.0}}";
+        System.out.println(new JSONObject(user).toString());
 
-        final User userMod = gson.fromJson(userJson, User.class);
-        System.out.println(userMod);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("married", user.isMarried());
+        jsonObject.put("name", user.getName());
+        jsonObject.put("age", user.getAge());
+        jsonObject.put("location", new JSONObject(
+                "{\"latitude\":\"50.0\",\"longitude\":\"50.0\"}"));
+        jsonObject.put("children", new JSONArray(
+                new ArrayList<>(List.of("Tom", "Wilson"))));
+        String jsonUser = jsonObject.toString();
+        final User userCopy = gson.fromJson(jsonUser, User.class);
+        System.out.println(user.equals(userCopy));
     }
 }
