@@ -1,0 +1,5 @@
+C:\projects\job4j_design\src\main\resources\answer.txt
+C:\projects\job4j_design\src\main\resources\chatLog.txt
+C:\projects\job4j_design\src\main\resources\multiplicationTable.txt
+C:\projects\job4j_design\src\main\resources\result.txt
+C:\projects\job4j_design\src\main\resources\tmp.txt
