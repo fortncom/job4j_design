@@ -8,28 +8,32 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 public class FileFinder {
 
     private Path startDir;
     private String searchArg;
     private String target;
+    String type;
     private boolean rsl;
 
-    private boolean findByName() throws IOException {
-        List<Path> paths = search(path -> path.toFile().getName().equals(searchArg));
+    private boolean find() throws IOException {
+        List<Path> paths = search(condition());
         return write(paths);
     }
 
-    private boolean findByRegex() throws IOException {
-        List<Path> paths = search(path -> path.toFile().getName().matches(searchArg));
-        return write(paths);
-    }
-
-    private boolean findByMask() throws IOException {
-        MaskFilter maskFilter = new MaskFilter(searchArg);
-        List<Path> paths = search(path -> maskFilter.accept(path.toFile(), path.toFile().getName()));
-        return write(paths);
+    private Predicate<Path> condition() {
+        if (type.equals("file")) {
+           return path -> path.toFile().getName().equals(searchArg);
+        } else if (type.equals("regex")) {
+           return path -> Pattern.compile(searchArg).matcher(path.toFile().getName()).matches();
+        } else if (type.equals("mask")) {
+            searchArg = searchArg.replace("?", ".?").replace("*", ".*");
+            return path -> Pattern.compile(searchArg).matcher(path.toFile().getName()).matches();
+        }
+        throw new IllegalArgumentException("Invalid data type specified.".concat(
+                " Available argument \"file\" or \"mask\" or \"regex\"."));
     }
 
     private List<Path> search(Predicate<Path> condition) throws IOException {
@@ -44,7 +48,8 @@ public class FileFinder {
         }
         try (BufferedWriter out = new BufferedWriter(new FileWriter(target, false))) {
             for (Path path : paths) {
-                out.write(path.toString() + System.lineSeparator());
+                out.write(path.toString());
+                out.newLine();
             }
             return true;
         } catch (IOException e) {
@@ -74,13 +79,8 @@ public class FileFinder {
         }
         ff.searchArg = args[1];
         ff.target = args[3];
-        ff.rsl = switch (args[2].toLowerCase()) {
-            case "file" ->  ff.findByName();
-            case "mask" -> ff.findByMask();
-            case "regex" -> ff.findByRegex();
-            default -> throw new IllegalArgumentException("Invalid data type specified.".concat(
-                    " Available argument \"file\" or \"mask\" or \"regex\"."));
-        };
+        ff.type = args[2].toLowerCase();
+        ff.rsl = ff.find();
         System.out.println(String.format("Запись в файл выполнена: %b", ff.rsl));
     }
 }
