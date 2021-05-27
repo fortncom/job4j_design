@@ -103,12 +103,12 @@ left join engines e on c.engine_id = e.id
 left join passports p on c.passport_id = p.id; 
 
 
-select c.name as "without navigator" 
-from car c left join navigators n 
-on c.navigator_id = n.id 
-where n.id is null;
+select n.*
+from navigators n left join car c
+on c.navigator_id = n.id
+where c.navigator_id is null;
 
-select c.name as "without passport" 
-from car c left join passports s 
-on c.passport_id = s.id 
-where s.id is null;
+select s.*
+from passports s left join car c
+on c.passport_id = s.id
+where c.passport_id is null;
