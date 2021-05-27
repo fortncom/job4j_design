@@ -25,7 +25,7 @@ select * from employees e left join departments d on e.department_id = d.id;
 select * from employees e right join departments d on e.department_id = d.id;
 select * from employees e cross join departments d;
 
-select * from employees e left join departments d on e.department_id = d.id where d.id is null;
+select * from departments d left join employees e on d.id = e.department_id where e.department_id is null;
 
 select * from employees e left join departments d on e.department_id = d.id;
 select * from departments d right join employees e on e.department_id = d.id;
@@ -43,5 +43,5 @@ insert into teens(name, gender) values('Moly', 'Female');
 insert into teens(name, gender) values('Helena', 'Butch');
 
 select t1 as user1, t2 as user2, t1.name || ' - ' || t2.name as pair
-from teens t1 cross join teens t2;
+from  teens t1 cross join teens t2 where t1.id != t2.id;
 
