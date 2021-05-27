@@ -9,6 +9,14 @@ env:
   global:
     - CODECOV_TOKEN="2eb1c478-e785-4f21-8baf-927c976f8ce5"
 
+# Start PostgreSQL
+services:
+  - postgresql
+
+# Create a database
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонний сервис https://codecov.io/
 after_success:
