@@ -22,26 +22,26 @@ create table meetings_users(
     id serial primary key,
     meeting_id int references meetings(id),
     user_id int references users(id),
-    accept boolean
+    agree boolean
 );
 
-insert into meetings_users(meeting_id, user_id, accept) values(1, 1, true);
-insert into meetings_users(meeting_id, user_id, accept) values(1, 2, false);
-insert into meetings_users(meeting_id, user_id, accept) values(1, 3, true);
-insert into meetings_users(meeting_id, user_id, accept) values(2, 1, true);
-insert into meetings_users(meeting_id, user_id, accept) values(2, 2, true);
-insert into meetings_users(meeting_id, user_id, accept) values(2, 3, true);
-insert into meetings_users(meeting_id, user_id, accept) values(3, null, null);
+insert into meetings_users(meeting_id, user_id, agree)values(1, 1, true);
+insert into meetings_users(meeting_id, user_id, agree)values(1, 2, false);
+insert into meetings_users(meeting_id, user_id, agree)values(1, 3, true);
+insert into meetings_users(meeting_id, user_id, agree)values(2, 1, true);
+insert into meetings_users(meeting_id, user_id, agree)values(2, 2, true);
+insert into meetings_users(meeting_id, user_id, agree)values(2, 3, true);
+insert into meetings_users(meeting_id, user_id, agree)values(3, null, null);
 
 
 select m.name as mitings, count(mu.user_id)
 from meetings_users mu join meetings m
 on mu.meeting_id=m.id
-and mu.accept=true
+and mu.agree =true
 group by m.name;
 
-select m.name as "mitings without accept"
+select m.name as "mitings without agree"
 from meetings_users mu join meetings m
 on mu.meeting_id=m.id
 group by m.name
-having count(mu.accept)=0;
+having count(mu.agree) =0;
