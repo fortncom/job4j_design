@@ -41,7 +41,7 @@ and mu.agree =true
 group by m.name;
 
 select m.name as "mitings without agree"
-from meetings_users mu join meetings m
+from meetings_users mu right join meetings m
 on mu.meeting_id=m.id
 group by m.name
-having count(mu.agree) =0;
+having count(mu.agree) = 0;
