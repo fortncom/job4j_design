@@ -13,22 +13,6 @@ public class DirFileCache extends AbstractCache<String, String> {
     }
 
     @Override
-    public String get(String key) {
-        String value;
-        if (!cache.containsKey(key)) {
-            put(key, load(key));
-            value = super.get(key);
-        } else {
-            value = super.get(key);
-            if (value == null) {
-                put(key, load(key));
-                value = super.get(key);
-            }
-        }
-        return value;
-    }
-
-    @Override
     protected String load(String key) {
         try {
             return Files.readString(Paths.get(cachingDir.concat("/").concat(key)));
