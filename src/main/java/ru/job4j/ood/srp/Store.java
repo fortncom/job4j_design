@@ -1,11 +1,10 @@
 package ru.job4j.ood.srp;
 
-import java.sql.Connection;
+import java.util.List;
+import java.util.function.Predicate;
 
-public interface Store<T> {
+public interface Store {
 
-    void add(T model);
-    boolean delete(String id);
-    Connection getDBConnection();
-    void saveDB();
+    List<Employee> findBy(Predicate<Employee> filter);
+
 }
