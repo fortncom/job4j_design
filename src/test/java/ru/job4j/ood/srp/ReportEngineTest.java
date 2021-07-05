@@ -1,11 +1,15 @@
 package ru.job4j.ood.srp;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class ReportEngineTest {
 
@@ -44,12 +48,12 @@ public class ReportEngineTest {
     }
 
     @Test
-    public void whenProgrammerGenerated() {
+    public void whenProgrammerGeneratedToHTML() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
-        Report engine = new ReportEngine(store, new ProgrammerReportFormatter());
+        Report engine = new ReportEngine(store, new ProgrammerReportFormatter(new HTMLFormat<>()));
         StringBuilder expect = new StringBuilder()
         .append("<!DOCTYPE html>")
         .append("<html>")
@@ -67,4 +71,20 @@ public class ReportEngineTest {
         assertThat(engine.generate(employee -> true), is(expect.toString()));
     }
 
+    @Test
+    public void whenProgrammerGeneratedToJSON() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker = new Employee("Ivan", now, now, 100);
+        Employee worker2 = new Employee("Ivan", now, now, 1100);
+        store.add(worker);
+        store.add(worker2);
+        List<Employee> list = new ArrayList<>();
+        list.add(worker);
+        list.add(worker2);
+        Report engine = new ReportEngine(store, new ProgrammerReportFormatter(new JSONFormat<>()));
+        Gson gson = new GsonBuilder().create();
+        String expected = gson.toJson(list);
+        assertThat(engine.generate(employee -> true), is(expected));
+    }
 }
