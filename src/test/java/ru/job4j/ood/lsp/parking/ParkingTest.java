@@ -24,7 +24,7 @@ public class ParkingTest {
         Car car = new Car(SizeCar.THREE_PLACE);
         Place light = new LightPlace(100);
         Place truck = new TruckPlace(50);
-        Parking parking = new CarParking(List.of(light, truck));
+        Parking parking = new CarParking(List.of(truck, light));
         parking.park(car, 1);
         assertThat(truck.takeCar(1), Is.is(car));
     }

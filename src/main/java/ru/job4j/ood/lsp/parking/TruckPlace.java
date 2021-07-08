@@ -9,12 +9,20 @@ public class TruckPlace implements Place {
     }
 
     @Override
-    public boolean takePlace(Car car) {
-        return false;
+    public boolean takePlace(Car car, int place) {
+        if (cars[place] != null) {
+            throw new IllegalArgumentException("This place is occupied");
+        }
+        cars[place] = car;
+        return true;
     }
 
     @Override
     public Car takeCar(int place) {
-        return null;
+        Car car = cars[place];
+        if (car == null) {
+            throw new IllegalArgumentException("Car not found");
+        }
+        return car;
     }
 }
