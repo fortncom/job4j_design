@@ -18,7 +18,7 @@ public class ControlQualityTest {
                 LocalDateTime.of(2021, 3, 7, 10, 0),
                 150, 50);
         Trash trash = new Trash();
-        ControlQuality qual = new ControlQuality(new Warehouse(), new Shop(), trash);
+        ControlQuality qual = new ControlQuality(List.of(new Warehouse(), new Shop(), trash));
         qual.quality(tomato);
         List<Food> foodList = trash.findBy(food -> true);
         assertThat(foodList.get(0), is(tomato));
@@ -31,7 +31,7 @@ public class ControlQualityTest {
                 LocalDateTime.of(2020, 5, 15, 5, 0),
                 245, 100);
         Warehouse warehouse = new Warehouse();
-        ControlQuality qual = new ControlQuality(warehouse, new Shop(), new Trash());
+        ControlQuality qual = new ControlQuality(List.of(warehouse, new Shop(), new Trash()));
         qual.quality(chicken);
         List<Food> foodList = warehouse.findBy(food -> true);
         assertThat(foodList.get(0), is(chicken));
@@ -46,7 +46,7 @@ public class ControlQualityTest {
                 LocalDateTime.of(1021, 7, 5, 12, 0),
                 price, discount);
         Shop shop = new Shop();
-        ControlQuality qual = new ControlQuality(new Warehouse(), shop, new Trash());
+        ControlQuality qual = new ControlQuality(List.of(new Warehouse(), shop, new Trash()));
         qual.quality(bread);
         List<Food> foodList = shop.findBy(food -> true);
         int rsl = foodList.get(0).price;

@@ -1,5 +1,7 @@
 package ru.job4j.ood.lsp.transfer;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -11,6 +13,21 @@ public class Shop implements Store {
 
     public void add(Food f) {
         food.add(f);
+    }
+
+    @Override
+    public boolean accept(Food food) {
+        boolean rsl = false;
+        Duration fullPeriod = Duration.between(food.createDate, food.expiryDate);
+        Duration remaining = Duration.between(LocalDateTime.now(), food.expiryDate);
+        double freshPercent = remaining.toHours() / (fullPeriod.toHours() * 0.01);
+        if (freshPercent < 75 && freshPercent > 0) {
+            rsl = true;
+        }
+        if (freshPercent < 25) {
+            food.price = food.price - food.discount;
+        }
+        return rsl;
     }
 
     @Override
