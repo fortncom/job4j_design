@@ -10,30 +10,30 @@ import static org.junit.Assert.*;
 public class ParkingTest {
 
     @Test
-    public void whenParkingLightCarThenLightPlace() {
-        Car car = new Car(SizeCar.ONE_PLACE);
-        Place light = new LightPlace(100);
-        Place truck = new TruckPlace(50);
-        Parking parking = new CarParking(List.of(light, truck));
+    public void whenParkingAutoThenAutoPlace() {
+        Car car = new Auto(1);
+        Place autoPlace = new AutoPlace(100);
+        Place truckPlace = new TruckPlace(50);
+        Parking parking = new CarParking(List.of(autoPlace, truckPlace));
         parking.park(car, 1);
-        assertThat(light.takeCar(1), Is.is(car));
+        assertThat(autoPlace.takeCar(1), Is.is(car));
     }
 
     @Test
     public void whenParkingTruckCarThenTruckPlace() {
-        Car car = new Car(SizeCar.THREE_PLACE);
-        Place light = new LightPlace(100);
-        Place truck = new TruckPlace(50);
-        Parking parking = new CarParking(List.of(truck, light));
+        Car car = new Truck(3);
+        Place autoPlace = new AutoPlace(100);
+        Place truckPlace = new TruckPlace(50);
+        Parking parking = new CarParking(List.of(truckPlace, autoPlace));
         parking.park(car, 1);
-        assertThat(truck.takeCar(1), Is.is(car));
+        assertThat(truckPlace.takeCar(1), Is.is(car));
     }
 
     @Test
     public void whenParkingTruckCarToLightPlaceThenTrue() {
-        Car car = new Car(SizeCar.THREE_PLACE);
-        Place light = new LightPlace(100);
-        Parking parking = new CarParking(List.of(light));
+        Car car = new Truck(3);
+        Place autoPlace = new AutoPlace(100);
+        Parking parking = new CarParking(List.of(autoPlace));
         boolean rsl = parking.park(car, 1);
         assertThat(rsl, Is.is(Boolean.TRUE));
     }

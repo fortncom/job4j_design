@@ -1,10 +1,10 @@
 package ru.job4j.ood.lsp.parking;
 
-public class LightPlace implements Place {
+public class AutoPlace implements Place {
 
     private final Car[] cars;
 
-    public LightPlace(int capacity) {
+    public AutoPlace(int capacity) {
         cars = new Car[capacity];
     }
 

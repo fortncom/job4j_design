@@ -2,21 +2,12 @@ package ru.job4j.ood.lsp.parking;
 
 import java.util.Objects;
 
-class Car {
+abstract class Car {
 
     private int size;
-    private boolean stand = false;
 
-    public Car(SizeCar size) {
-        this.size = size.getValue();
-    }
-
-    public boolean isStand() {
-        return stand;
-    }
-
-    public void setStand(boolean stand) {
-        this.stand = stand;
+    public Car(int size) {
+        this.size = size;
     }
 
     public int getSize() {
@@ -27,7 +18,6 @@ class Car {
     public String toString() {
         return "Car{"
                 + "size=" + size
-                + ", stand=" + stand
                 + '}';
     }
 
@@ -40,12 +30,11 @@ class Car {
             return false;
         }
         Car car = (Car) o;
-        return size == car.size
-                && stand == car.stand;
+        return size == car.size;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(size, stand);
+        return Objects.hash(size);
     }
 }
