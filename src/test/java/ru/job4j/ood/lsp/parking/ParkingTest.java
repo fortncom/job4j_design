@@ -11,7 +11,7 @@ public class ParkingTest {
 
     @Test
     public void whenParkingAutoThenAutoPlace() {
-        Car car = new Auto(1);
+        Car car = new Auto();
         Place autoPlace = new AutoPlace(100);
         Place truckPlace = new TruckPlace(50);
         Parking parking = new CarParking(List.of(autoPlace, truckPlace));

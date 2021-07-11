@@ -10,33 +10,31 @@ public class AutoPlace implements Place {
 
     @Override
     public boolean takePlace(Car car, int place) {
+        boolean rsl = false;
         if (cars[place] != null) {
             throw new IllegalArgumentException("This place is occupied");
         }
         if (car.getSize() == 1) {
-            for (int i = 0; i < cars.length; i++) {
-                if (cars[i] == null) {
-                    cars[i] = car;
-                }
-            }
+            cars[place] = car;
+            rsl = true;
         } else {
             int count = 0;
             int size = car.getSize();
-            for (int i = 0; i < cars.length; i++) {
-                if (cars[i] == null) {
-                    count++;
-                } else {
-                    count = 0;
+            for (int i = place - size; i < place + size; i++) {
+                if (i < 0 || i > cars.length) {
+                    continue;
                 }
+                count = cars[i] == null ? count + 1 : 0;
                 if (size == count) {
-                    for (int j = i; j > j - size; j--) {
+                    for (int j = i; j > i - size; j--) {
                         cars[j] = car;
-                        return true;
                     }
+                    rsl = true;
+                    break;
                 }
             }
         }
-        return false;
+        return rsl;
     }
 
     @Override
