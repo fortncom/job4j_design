@@ -1,9 +1,7 @@
 package ru.job4j.ood.isp.menu;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.TreeSet;
 
 public class MenuUI {
 
@@ -57,34 +55,4 @@ public class MenuUI {
         out.println(rsl.toString());
     }
 
-    public static void main(String[] args) {
-        Input input = new ConsoleInput();
-        Output output = new ConsoleOutput();
-        Action action = new DemoAction(output);
-        ItemMenu menu = new ItemMenu(Comparator.comparing(Item::getName));
-        Item item2 = new Item("Задача 2");
-        Item item = new Item("Задача 1");
-        Item item3 = new Item("Задача 1.1");
-        Item item4 = new Item("Задача 1.2");
-        Item item5 = new Item("Задача 1.1.1");
-        Item item6 = new Item("Задача 1.1.2");
-        Item item7 = new Item("Задача 1.1.2.5");
-        item.setText("Текст первого итема!");
-        item4.setAction(action);
-        item2.setAction(action);
-        item.setAction(action);
-        item3.setAction(action);
-        item7.setAction(action);
-        item5.setAction(action);
-        TreeSet<Item> children = item.getChildren();
-        children.add(item3);
-        children.add(item4);
-        item3.getChildren().add(item5);
-        item3.getChildren().add(item6);
-        item5.getChildren().add(item7);
-        menu.add(item);
-        menu.add(item2);
-        MenuUI ui = new MenuUI(output);
-        ui.start(input, menu);
-    }
 }
