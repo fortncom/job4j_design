@@ -17,7 +17,7 @@ public class ArgsName {
         }
         for (String arg : args) {
             if (arg.length() != 0) {
-                String[] argument = arg.substring(1).split("=");
+                String[] argument = arg.split("=");
                 if (argument.length != 2) {
                     throw new IllegalArgumentException("Args not valid. Use skeleton of key=value");
                 } else {
@@ -34,10 +34,10 @@ public class ArgsName {
     }
 
     public static void main(String[] args) {
-        ArgsName jvm = ArgsName.of(new String[] {"-Xmx=512", "-encoding=UTF-8"});
+        ArgsName jvm = ArgsName.of(new String[] {"Xmx=512", "encoding=UTF-8"});
         System.out.println(jvm.get("Xmx"));
 
-        ArgsName zip = ArgsName.of(new String[] {"-out=project.zip", "-encoding=UTF-8"});
+        ArgsName zip = ArgsName.of(new String[] {"out=project.zip", "encoding=UTF-8"});
         System.out.println(zip.get("out"));
     }
 }

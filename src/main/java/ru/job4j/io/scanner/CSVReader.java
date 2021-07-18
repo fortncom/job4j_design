@@ -30,8 +30,7 @@ public class CSVReader {
         List<String> list = new ArrayList<>();
         try (Scanner scanner = new Scanner(start).useDelimiter(readProp(args[1]))) {
             while (scanner.hasNext()) {
-                String next = scanner.next();
-                list.add("-" + next);
+                list.add(scanner.next());
             }
         } catch (IOException e) {
             e.printStackTrace();
