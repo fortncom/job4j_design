@@ -1,1 +1,2 @@
-name=Tom;age=24;birthday=10.04.1997;education=PHD;children=false
+name;age;birthday;education;children;
+Tom;24;10.04.1997;PHD;false

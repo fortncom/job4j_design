@@ -12,38 +12,45 @@ import java.util.Scanner;
 
 public class CSVReader {
 
-    public static String readProp(String prop) {
-        return prop.split("=")[1];
-    }
-
     public static void main(String[] args) {
         if (args.length < 4) {
             throw new IllegalArgumentException("Insufficient number of input parameters Usage java -jar dir.jar PATH DELIMITER OUT FILTER.");
         }
-        Path start = Paths.get(readProp(args[0]));
+        ArgsName argsName = ArgsName.of(args);
+        Path start = Paths.get(argsName.get("path"));
         if (!start.toFile().exists()) {
             throw new IllegalArgumentException(String.format("Not exist %s", start.toFile().getAbsoluteFile()));
         }
         if (start.toFile().isDirectory()) {
             throw new IllegalArgumentException(String.format("File is directory %s", start.toFile().getAbsoluteFile()));
         }
-        List<String> list = new ArrayList<>();
-        try (Scanner scanner = new Scanner(start).useDelimiter(readProp(args[1]))) {
-            while (scanner.hasNext()) {
-                list.add(scanner.next());
+        StringBuilder rsl = new StringBuilder();
+        List<String> filter = new ArrayList<>(List.of(argsName.get("filter").split(",")));
+        List<Integer> indexes = new ArrayList<>();
+        String delimiter = argsName.get("delimiter");
+        try (Scanner scanner = new Scanner(start)) {
+            if (scanner.hasNextLine()) {
+                String[] line = scanner.nextLine().split(delimiter);
+                for (int i = 0; i < line.length; i++) {
+                    if (filter.contains(line[i])) {
+                        indexes.add(i);
+                        rsl.append(line[i]);
+                        rsl.append(delimiter);
+                    }
+                }
+            }
+            while (scanner.hasNextLine()) {
+                rsl.append(System.lineSeparator());
+                String[] line = scanner.nextLine().split(delimiter);
+                for (Integer index : indexes) {
+                    rsl.append(line[index]);
+                    rsl.append(delimiter);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String[] fields = new String[list.size()];
-        list.toArray(fields);
-        ArgsName argsName = ArgsName.of(fields);
-        String[] filter = readProp(args[3]).split(",");
-        StringBuilder rsl = new StringBuilder();
-        for (int i = 0; i < filter.length; i++) {
-            rsl.append(String.format("%s=%s", filter[i], argsName.get(filter[i])).concat(";"));
-        }
-        String out = readProp(args[2]);
+        String out = argsName.get("out");
         if (out.equalsIgnoreCase("stdout")) {
             System.out.println(rsl);
         } else {
