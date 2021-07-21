@@ -75,11 +75,10 @@ public class CSVReader {
                 String[] line = scanner.nextLine().split(delimiter);
                 indexes = csv.indicesOf(line);
                 csv.parseLine(line, indexes);
-            }
-            while (scanner.hasNextLine()) {
-                String[] line = scanner.nextLine().split(delimiter);
-                indexes = csv.indicesOf(line);
-                csv.parseLine(line, indexes);
+                while (scanner.hasNextLine()) {
+                    line = scanner.nextLine().split(delimiter);
+                    csv.parseLine(line, indexes);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
