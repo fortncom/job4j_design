@@ -19,12 +19,10 @@ class Yacht implements Ship {
 
     @Override
     public void move(int distance) {
-        //logic
     }
 
     @Override
     public void sail() {
-        //logic
     }
 }
 
@@ -32,11 +30,9 @@ class Liner implements Ship {
 
     @Override
     public void move(int distance) {
-        //logic
     }
 
     @Override
     public void sail() {
-        //logic
     }
 }

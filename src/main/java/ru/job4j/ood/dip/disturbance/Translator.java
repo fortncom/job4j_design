@@ -11,7 +11,6 @@ public class Translator {
     String translate(String text) {
         String rsl = "";
         FileReader reader = new FileReader();
-        //logic
         return rsl;
     }
 

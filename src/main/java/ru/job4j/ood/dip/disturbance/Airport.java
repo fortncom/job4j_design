@@ -19,6 +19,5 @@ class AirbusA320 implements Plane {
 
     @Override
     public void fly() {
-        //logic
     }
 }

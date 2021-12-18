@@ -19,7 +19,6 @@ public class BlockTracker {
 
     public Location track() {
         Location currentLocation = new Location();
-        //logic
         if (currentLocation.latitude > locationBinding.latitude + distance) {
             block = true;
             currentLocation.latitude = -200;
@@ -43,7 +42,6 @@ class AutoBlockTracker extends BlockTracker {
     @Override
     public Location track() {
         Location currentLocation = new Location();
-        //logic
         if (currentLocation.latitude > locationBinding.latitude + distance + 100) {
             block = true;
         }

@@ -25,6 +25,5 @@ class Chrome implements Browser {
 
     @Override
     public void browse() {
-        //logic
     }
 }

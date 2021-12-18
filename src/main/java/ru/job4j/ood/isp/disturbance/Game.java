@@ -17,17 +17,14 @@ class Snake implements Game {
 
     @Override
     public void play() {
-        //logic
     }
 
     @Override
     public void stop() {
-        //logic
     }
 
     @Override
     public void replay() {
-        //logic
     }
 }
 
@@ -36,7 +33,6 @@ class MMOSnake implements Game {
 
     @Override
     public void play() {
-        //logic
     }
 
     @Override
@@ -46,6 +42,5 @@ class MMOSnake implements Game {
 
     @Override
     public void replay() {
-        //logic
     }
 }

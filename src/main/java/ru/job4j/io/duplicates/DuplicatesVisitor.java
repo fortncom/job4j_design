@@ -9,7 +9,6 @@ import java.util.*;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
 
-//    private Set<FileProperty> allFiles = new HashSet<>();
     private Map<FileProperty, Path> allFiles = new HashMap<>();
     private List<FileProperty> duplicate = new ArrayList<>();
 

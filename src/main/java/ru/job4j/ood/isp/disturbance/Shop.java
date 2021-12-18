@@ -18,12 +18,10 @@ class Achan implements Shop {
 
     @Override
     public void sell(String product) {
-        //logic
     }
 
     @Override
     public void sale() {
-        //logic
     }
 }
 
@@ -31,7 +29,6 @@ class CraftShop implements Shop {
 
     @Override
     public void sell(String product) {
-        //logic
     }
 
     @Override

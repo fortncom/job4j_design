@@ -39,7 +39,6 @@ class Reader {
             System.out.println("Pages are out");
             return;
         }
-        // other logic
     }
 }
 
@@ -49,6 +48,5 @@ class EnglishReader extends Reader {
         if (book.getPages() == currentPage) {
             throw new IllegalStateException("pages are out");
         }
-        // other logic
     }
 }
